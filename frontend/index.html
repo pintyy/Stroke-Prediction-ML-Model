@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stroke Risk Predictor</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <div class="bg-glow bg-glow-1"></div>
+      <div class="bg-glow bg-glow-2"></div>
+      <div class="bg-glow bg-glow-3"></div>
+      <div class="bg-noise"></div>
+    </div>
+
+    <div class="container">
+      <!-- Navbar -->
+      <nav class="navbar">
+        <div class="logo">
+          <span class="logo-icon">⚡</span>
+          <span class="logo-text">StrokeML</span>
+        </div>
+        <div class="nav-badge">v1.0 · FastAPI</div>
+      </nav>
+
+      <!-- Hero -->
+      <header class="hero">
+        <div class="hero-left">
+          <div class="hero-tag">🧠 Machine Learning Model</div>
+          <h1 class="hero-title">Stroke Risk<br /><span>Prediction</span></h1>
+          <p class="hero-desc">
+            Yapay zeka destekli inme riski tahmin sistemi. Hasta verilerini
+            girin, anlık sonuç alın.
+          </p>
+        </div>
+        <div class="hero-right">
+          <div class="score-card">
+            <div class="score-ring">
+              <svg viewBox="0 0 100 100">
+                <circle class="score-ring-bg" cx="50" cy="50" r="42" />
+                <circle
+                  id="score-ring-fill"
+                  class="score-ring-fill"
+                  cx="50"
+                  cy="50"
+                  r="42"
+                />
+              </svg>
+              <div class="score-value">
+                <span id="score-num">--</span>
+                <small>%</small>
+              </div>
+            </div>
+            <div class="score-label">Risk Skoru</div>
+            <div id="score-status" class="score-status">Bekleniyor</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-grid">
+        <!-- Form Card -->
+        <section class="card form-card">
+          <div class="card-header">
+            <h2>📝 Hasta Bilgileri</h2>
+            <span class="chip">Giriş Formu</span>
+          </div>
+          <form id="predict-form" class="form">
+            <div class="form-grid">
+              <div class="input-group">
+                <label>Cinsiyet</label>
+                <select name="gender" required>
+                  <option value="Male">Erkek</option>
+                  <option value="Female">Kadın</option>
+                  <option value="Other">Diğer</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Yaş</label>
+                <input
+                  type="number"
+                  name="age"
+                  min="0"
+                  max="120"
+                  step="0.1"
+                  placeholder="0 - 120"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Hipertansiyon</label>
+                <select name="hypertension" required>
+                  <option value="0">Hayır</option>
+                  <option value="1">Evet</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Kalp Hastalığı</label>
+                <select name="heart_disease" required>
+                  <option value="0">Hayır</option>
+                  <option value="1">Evet</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Evlilik Durumu</label>
+                <select name="ever_married" required>
+                  <option value="Yes">Evli</option>
+                  <option value="No">Bekar</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Çalışma Türü</label>
+                <select name="work_type" required>
+                  <option value="Private">Özel Sektör</option>
+                  <option value="Self-employed">Serbest Meslek</option>
+                  <option value="Govt_job">Devlet</option>
+                  <option value="children">Çocuk</option>
+                  <option value="Never_worked">Çalışmıyor</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Yerleşim Yeri</label>
+                <select name="Residence_type" required>
+                  <option value="Urban">Şehir</option>
+                  <option value="Rural">Kırsal</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Ortalama Glikoz</label>
+                <input
+                  type="number"
+                  name="avg_glucose_level"
+                  min="40"
+                  max="300"
+                  step="0.1"
+                  placeholder="40 - 300 mg/dL"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label>BMI (Vücut Kitle İndeksi)</label>
+                <input
+                  type="number"
+                  name="bmi"
+                  min="10"
+                  max="60"
+                  step="0.1"
+                  placeholder="10 - 60 kg/m²"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Sigara Durumu</label>
+                <select name="smoking_status" required>
+                  <option value="never smoked">Hiç İçmedi</option>
+                  <option value="formerly smoked">Bırakmış</option>
+                  <option value="smokes">İçiyor</option>
+                  <option value="Unknown">Bilinmiyor</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" id="submit-btn" class="submit-btn">
+              <span class="btn-text">🚀 Tahmin Al</span>
+              <span class="btn-loader"></span>
+            </button>
+          </form>
+        </section>
+
+        <!-- Result Card -->
+        <section class="card result-card">
+          <div class="card-header">
+            <h2>📈 Sonuç</h2>
+            <span id="result-chip" class="chip chip-muted">Bekliyor</span>
+          </div>
+
+          <div class="result-body">
+            <div class="result-gauge">
+              <div class="gauge-track">
+                <div id="gauge-fill" class="gauge-fill"></div>
+              </div>
+              <div class="gauge-labels">
+                <span>Düşük</span>
+                <span>Orta</span>
+                <span>Yüksek</span>
+              </div>
+            </div>
+
+            <div class="result-info">
+              <div class="result-row">
+                <span class="result-label">Risk Durumu</span>
+                <span id="result-risk" class="result-value">--</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">Olasılık</span>
+                <span id="result-prob" class="result-value">--</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-note">
+            <span>ℹ️</span> Model çıktısı 0-1 arasında olasılık değeridir.
+            Klinik karar için doktor görüşü alınız.
+          </div>
+        </section>
+
+        <!-- Info Card -->
+        <section class="card info-card">
+          <div class="card-header">
+            <h2>💡 Bilgi</h2>
+          </div>
+          <ul class="info-list">
+            <li>
+              <span class="info-bullet"></span>
+              Veriler şifreli bağlantıyla API'ye iletilir.
+            </li>
+            <li>
+              <span class="info-bullet"></span>
+              Model, Logistic Regression tabanlıdır.
+            </li>
+            <li>
+              <span class="info-bullet"></span>
+              Yüksek risk kırmızı, düşük risk yeşil ile gösterilir.
+            </li>
+            <li>
+              <span class="info-bullet"></span>
+              Bu bir demo uygulamadır; tıbbi tavsiye yerine geçmez.
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>StrokeML © 2026 · Powered by FastAPI & scikit-learn</span>
+      </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
