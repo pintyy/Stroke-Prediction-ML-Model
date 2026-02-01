@@ -101,6 +101,3 @@ POST /predict
 
 This application is for educational purposes only. It should not be used for medical decision-making. Always consult a healthcare professional.
 
-## License
-
-MIT
