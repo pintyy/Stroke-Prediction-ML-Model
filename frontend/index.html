@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,23 +15,19 @@
     </div>
 
     <div class="container">
-      <!-- Navbar -->
       <nav class="navbar">
         <div class="logo">
-          <span class="logo-icon">⚡</span>
           <span class="logo-text">StrokeML</span>
         </div>
         <div class="nav-badge">v1.0 · FastAPI</div>
       </nav>
 
-      <!-- Hero -->
       <header class="hero">
         <div class="hero-left">
-          <div class="hero-tag">🧠 Machine Learning Model</div>
+          <div class="hero-tag">Machine Learning Model</div>
           <h1 class="hero-title">Stroke Risk<br /><span>Prediction</span></h1>
           <p class="hero-desc">
-            Yapay zeka destekli inme riski tahmin sistemi. Hasta verilerini
-            girin, anlık sonuç alın.
+            AI-powered stroke risk prediction system. Enter patient data and get instant results.
           </p>
         </div>
         <div class="hero-right">
@@ -52,33 +48,31 @@
                 <small>%</small>
               </div>
             </div>
-            <div class="score-label">Risk Skoru</div>
-            <div id="score-status" class="score-status">Bekleniyor</div>
+            <div class="score-label">Risk Score</div>
+            <div id="score-status" class="score-status">Waiting</div>
           </div>
         </div>
       </header>
 
-      <!-- Main Content -->
       <main class="main-grid">
-        <!-- Form Card -->
         <section class="card form-card">
           <div class="card-header">
-            <h2>📝 Hasta Bilgileri</h2>
-            <span class="chip">Giriş Formu</span>
+            <h2>Patient Information</h2>
+            <span class="chip">Input Form</span>
           </div>
           <form id="predict-form" class="form">
             <div class="form-grid">
               <div class="input-group">
-                <label>Cinsiyet</label>
+                <label>Gender</label>
                 <select name="gender" required>
-                  <option value="Male">Erkek</option>
-                  <option value="Female">Kadın</option>
-                  <option value="Other">Diğer</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
 
               <div class="input-group">
-                <label>Yaş</label>
+                <label>Age</label>
                 <input
                   type="number"
                   name="age"
@@ -91,50 +85,50 @@
               </div>
 
               <div class="input-group">
-                <label>Hipertansiyon</label>
+                <label>Hypertension</label>
                 <select name="hypertension" required>
-                  <option value="0">Hayır</option>
-                  <option value="1">Evet</option>
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
                 </select>
               </div>
 
               <div class="input-group">
-                <label>Kalp Hastalığı</label>
+                <label>Heart Disease</label>
                 <select name="heart_disease" required>
-                  <option value="0">Hayır</option>
-                  <option value="1">Evet</option>
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
                 </select>
               </div>
 
               <div class="input-group">
-                <label>Evlilik Durumu</label>
+                <label>Marital Status</label>
                 <select name="ever_married" required>
-                  <option value="Yes">Evli</option>
-                  <option value="No">Bekar</option>
+                  <option value="Yes">Married</option>
+                  <option value="No">Single</option>
                 </select>
               </div>
 
               <div class="input-group">
-                <label>Çalışma Türü</label>
+                <label>Work Type</label>
                 <select name="work_type" required>
-                  <option value="Private">Özel Sektör</option>
-                  <option value="Self-employed">Serbest Meslek</option>
-                  <option value="Govt_job">Devlet</option>
-                  <option value="children">Çocuk</option>
-                  <option value="Never_worked">Çalışmıyor</option>
+                  <option value="Private">Private</option>
+                  <option value="Self-employed">Self-employed</option>
+                  <option value="Govt_job">Government</option>
+                  <option value="children">Children</option>
+                  <option value="Never_worked">Never worked</option>
                 </select>
               </div>
 
               <div class="input-group">
-                <label>Yerleşim Yeri</label>
+                <label>Residence Type</label>
                 <select name="Residence_type" required>
-                  <option value="Urban">Şehir</option>
-                  <option value="Rural">Kırsal</option>
+                  <option value="Urban">Urban</option>
+                  <option value="Rural">Rural</option>
                 </select>
               </div>
 
               <div class="input-group">
-                <label>Ortalama Glikoz</label>
+                <label>Avg. Glucose Level</label>
                 <input
                   type="number"
                   name="avg_glucose_level"
@@ -147,7 +141,7 @@
               </div>
 
               <div class="input-group">
-                <label>BMI (Vücut Kitle İndeksi)</label>
+                <label>BMI</label>
                 <input
                   type="number"
                   name="bmi"
@@ -160,28 +154,27 @@
               </div>
 
               <div class="input-group">
-                <label>Sigara Durumu</label>
+                <label>Smoking Status</label>
                 <select name="smoking_status" required>
-                  <option value="never smoked">Hiç İçmedi</option>
-                  <option value="formerly smoked">Bırakmış</option>
-                  <option value="smokes">İçiyor</option>
-                  <option value="Unknown">Bilinmiyor</option>
+                  <option value="never smoked">Never smoked</option>
+                  <option value="formerly smoked">Formerly smoked</option>
+                  <option value="smokes">Smokes</option>
+                  <option value="Unknown">Unknown</option>
                 </select>
               </div>
             </div>
 
             <button type="submit" id="submit-btn" class="submit-btn">
-              <span class="btn-text">🚀 Tahmin Al</span>
+              <span class="btn-text">Predict</span>
               <span class="btn-loader"></span>
             </button>
           </form>
         </section>
 
-        <!-- Result Card -->
         <section class="card result-card">
           <div class="card-header">
-            <h2>📈 Sonuç</h2>
-            <span id="result-chip" class="chip chip-muted">Bekliyor</span>
+            <h2>Result</h2>
+            <span id="result-chip" class="chip chip-muted">Waiting</span>
           </div>
 
           <div class="result-body">
@@ -190,58 +183,56 @@
                 <div id="gauge-fill" class="gauge-fill"></div>
               </div>
               <div class="gauge-labels">
-                <span>Düşük</span>
-                <span>Orta</span>
-                <span>Yüksek</span>
+                <span>Low</span>
+                <span>Medium</span>
+                <span>High</span>
               </div>
             </div>
 
             <div class="result-info">
               <div class="result-row">
-                <span class="result-label">Risk Durumu</span>
+                <span class="result-label">Risk Status</span>
                 <span id="result-risk" class="result-value">--</span>
               </div>
               <div class="result-row">
-                <span class="result-label">Olasılık</span>
+                <span class="result-label">Probability</span>
                 <span id="result-prob" class="result-value">--</span>
               </div>
             </div>
           </div>
 
           <div class="result-note">
-            <span>ℹ️</span> Model çıktısı 0-1 arasında olasılık değeridir.
-            Klinik karar için doktor görüşü alınız.
+            Model output is a probability value between 0-1. Consult a doctor for clinical decisions.
           </div>
         </section>
 
-        <!-- Info Card -->
         <section class="card info-card">
           <div class="card-header">
-            <h2>💡 Bilgi</h2>
+            <h2>Info</h2>
           </div>
           <ul class="info-list">
             <li>
               <span class="info-bullet"></span>
-              Veriler şifreli bağlantıyla API'ye iletilir.
+              Data is sent to the API via encrypted connection.
             </li>
             <li>
               <span class="info-bullet"></span>
-              Model, Logistic Regression tabanlıdır.
+              Model is based on Logistic Regression.
             </li>
             <li>
               <span class="info-bullet"></span>
-              Yüksek risk kırmızı, düşük risk yeşil ile gösterilir.
+              High risk is shown in red, low risk in green.
             </li>
             <li>
               <span class="info-bullet"></span>
-              Bu bir demo uygulamadır; tıbbi tavsiye yerine geçmez.
+              This is a demo application; not medical advice.
             </li>
           </ul>
         </section>
       </main>
 
       <footer class="footer">
-        <span>StrokeML © 2026 · Powered by FastAPI & scikit-learn</span>
+        <span>StrokeML · Powered by FastAPI & scikit-learn</span>
       </footer>
     </div>
 
